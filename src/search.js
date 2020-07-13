@@ -15,6 +15,9 @@ class DruxtSearch {
 
     this.options = {
       endpoint: 'jsonapi',
+      menu: {
+        index: 'default',
+      },
 
       ...options
     }
@@ -24,7 +27,7 @@ class DruxtSearch {
 
     // Add the JSON API Search API resource to the index.
     this.index = this.druxtRouter.getIndex().then(() => {
-      this.druxtRouter.index['index--default'] = { href: `${this.options.endpoint}/index/default` }
+      this.druxtRouter.index[`index--${this.options.menu.index}`] = { href: `${this.options.endpoint}/index/${this.options.menu.index}` }
     })
   }
 }
