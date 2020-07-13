@@ -28,9 +28,22 @@ const DruxtSearchMixin = {
     }
   },
 
+  computed: {
+    searchOptions: () => ({
+      limit: 10
+    }),
+  },
+
   methods: {
     doSearch() {
-      this.getResults({ index: this.index, query: this.query }).then(results => {
+      const options = {
+        index: this.index,
+        query: this.query,
+
+        ...this.searchOptions
+      }
+
+      this.getResults(options).then(results => {
         this.results = results
       })
     },

@@ -26,6 +26,10 @@ const DruxtSearchStore = ({ store }) => {
         const query = new DrupalJsonApiParams()
           .addFilter('fulltext', options.query)
 
+        if (options.limit) {
+          query.addPageLimit(options.limit)
+        }
+
         const queryHash = md5(query.getQueryString())
 
         if (state.queries[queryHash]) {
