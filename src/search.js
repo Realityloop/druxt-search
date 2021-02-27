@@ -1,33 +1,36 @@
-import { DruxtRouter } from 'druxt-router'
+import { DruxtClient } from 'druxt'
 
 class DruxtSearch {
   /**
    * Constructor.
    *
-   * @param string baseURL
+   * @param string baseUrl
    * @param object options
    */
-  constructor (baseURL, options = {}) {
+  constructor (baseUrl, options = {}) {
     // Check for URL.
-    if (!baseURL) {
-      throw new Error('The \'baseURL\' parameter is required.')
+    if (!baseUrl) {
+      throw new Error('The \'baseUrl\' parameter is required.')
     }
 
     this.options = {
-      endpoint: 'jsonapi',
       menu: {
         index: 'default',
       },
-
       ...options
     }
 
-    // Setup Druxt Router.
-    this.druxtRouter = new DruxtRouter(baseURL, options)
+    /**
+     * Instance of the Druxt Client.
+     *
+     * @type {DruxtClient}
+     * @see {@link http://druxtjs.org/api/client}
+     */
+    this.druxt = new DruxtClient(baseUrl, options)
 
     // Add the JSON API Search API resource to the index.
-    this.index = this.druxtRouter.getIndex().then(() => {
-      this.druxtRouter.index[`index--${this.options.menu.index}`] = { href: `${this.options.endpoint}/index/${this.options.menu.index}` }
+    this.index = this.druxt.getIndex().then(() => {
+      this.druxt.index[`index--${this.options.menu.index}`] = { href: `${this.druxt.options.endpoint}/index/${this.options.menu.index}` }
     })
   }
 }
