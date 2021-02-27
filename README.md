@@ -17,13 +17,11 @@ Add module to `nuxt.config.js`
 ```js
 module.exports = {
   modules: [
-    ...
-    'druxt-router',
     'druxt-search'
   ],
 
   druxt: {
-    baseUrl: 'https://example.com'
+    baseUrl: 'https://demo-api.druxtjs.org'
   }
 }
 ```
